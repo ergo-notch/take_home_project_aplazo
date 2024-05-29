@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:take_home_project/core/utils/app_images.dart';
+import 'package:take_home_project/features/search/presentation/search_recipe_screen.dart';
 import 'package:take_home_project/shared/ui/home_button.dart';
 
 import '../../../core/utils/app_icons.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
+
+  static const name = 'home-screen';
+  static const path = '/home-screen';
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +71,8 @@ class HomeScreen extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 75),
-                    child: HomeButton(onPressed: () {}),
+                    child: HomeButton(
+                        onPressed: () => context.push(SearchRecipeScreen.path)),
                   )
                 ],
               ),
