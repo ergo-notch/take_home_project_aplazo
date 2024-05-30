@@ -11,8 +11,10 @@ class SearchRecipesUseCase
     final recipes = List.of(params.recipes);
     final result = recipes
         .where((x) =>
-            (x.name?.toLowerCase() ?? '').contains(params.searchText ?? '') ||
-            (x.cuisine?.toLowerCase() ?? '').contains(params.searchText ?? ''))
+            (x.name?.toLowerCase() ?? '')
+                .contains(params.searchText?.toLowerCase() ?? '') ||
+            (x.cuisine?.toLowerCase() ?? '')
+                .contains(params.searchText?.toLowerCase() ?? ''))
         .toList();
     return Right(result);
   }

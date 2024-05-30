@@ -9,6 +9,8 @@ sealed class SearchRecipesEvent extends Equatable {
 
 final class GetRecipesEvent extends SearchRecipesEvent {}
 
+final class AddMoreRecipesEvent extends SearchRecipesEvent {}
+
 class FetchedRecipesEvent extends SearchRecipesEvent {
   final List<RecipeEntity>? recipes;
 
@@ -34,3 +36,4 @@ class ShowSearchResultsEvent extends SearchRecipesEvent {
 }
 
 class ClearSearchEvent extends SearchRecipesEvent {}
+

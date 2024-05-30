@@ -21,6 +21,7 @@ class SearchRecipesBloc extends Bloc<SearchRecipesEvent, SearchRecipesState> {
     on<SearchRecipesByStringEvent>(_searchRecipesByString);
     on<ShowSearchResultsEvent>(_showSearchResultsEvent);
     on<ClearSearchEvent>(_clearSearchEvent);
+    on<AddMoreRecipesEvent>(_addMoreRecipes);
   }
 
   Future<void> _getRecipes(event, emit) async {
@@ -33,8 +34,8 @@ class SearchRecipesBloc extends Bloc<SearchRecipesEvent, SearchRecipesState> {
 
   void _fetchedRecipes(FetchedRecipesEvent event, emit) => emit(state.copyWith(
       status: PostStatus.success,
-      recipes: event.recipes,
-      filteredRecipes: event.recipes));
+      recipes: [...state.filteredRecipes, ...event.recipes ?? []],
+      filteredRecipes: [...state.filteredRecipes, ...event.recipes ?? []]));
 
   void _failedGetRecipes(FailedGetRecipesEvent event, emit) =>
       emit(state.copyWith(
@@ -56,5 +57,13 @@ class SearchRecipesBloc extends Bloc<SearchRecipesEvent, SearchRecipesState> {
 
   void _clearSearchEvent(ClearSearchEvent event, emit) {
     emit(state.copyWith(filteredRecipes: state.recipes));
+  }
+
+  Future<void> _addMoreRecipes(AddMoreRecipesEvent event, emit) async {
+    emit(state.copyWith(status: PostStatus.fetching));
+    final result = await getRecipesUseCase.call(NoParams());
+    result.fold(
+        (failure) => add(FailedGetRecipesEvent(errorMessage: failure.message)),
+        (success) => add(FetchedRecipesEvent(recipes: success)));
   }
 }

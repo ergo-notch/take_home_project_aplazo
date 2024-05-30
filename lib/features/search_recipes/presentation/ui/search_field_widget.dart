@@ -47,7 +47,7 @@ class SearchFieldWidgetState extends State<SearchFieldWidget> {
               color: Colors.grey.shade400,
               fontSize: 16,
               fontWeight: FontWeight.w400),
-          hintText: 'Search recipe_details',
+          hintText: 'Search recipe',
           icon: Padding(
             padding: const EdgeInsets.only(left: 6.0),
             child: Icon(

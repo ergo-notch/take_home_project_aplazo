@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:take_home_project/core/error/failures.dart';
+import 'package:take_home_project/core/network/http-client/http_client_errors.dart';
 import 'package:take_home_project/features/search_recipes/domain/datasources/recipes_remote_data_source.dart';
 import 'package:take_home_project/features/search_recipes/domain/entities/recipe_entity.dart';
 import 'package:take_home_project/features/search_recipes/domain/repositories/recipes_repositoryl.dart';
@@ -17,8 +18,8 @@ class RecipeRepositoryImpl extends RecipesRepository {
           ?.map((x) => RecipeEntity.dtoToEntity(recipeDto: x))
           .toList();
       return Right(result);
-    } catch (e) {
-      return Left(Failure(message: e.toString()));
+    } catch (error) {
+      return Left(Failure(message: (error as HttpClientError).message));
     }
   }
 }
