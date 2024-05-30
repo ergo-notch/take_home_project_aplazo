@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:take_home_project/core/local_storage/isar_service.dart';
+import 'package:take_home_project/features/favorites/presentation/bloc/favorites_recipes_bloc.dart';
 import 'package:take_home_project/features/search_recipes/presentation/bloc/seach_recipes_bloc.dart';
 
 import 'core/di/injection_modules.dart' as di;
@@ -7,6 +9,7 @@ import 'core/router/router.dart';
 import 'core/utils/simple_bloc_observer.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = const SimpleBlocObserver();
   await di.init();
   runApp(const App());
@@ -26,6 +29,9 @@ class _AppState extends State<App> {
       providers: [
         BlocProvider(
           create: (_) => di.sl<SearchRecipesBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.sl<FavoritesRecipesBloc>(),
         ),
       ],
       child: const AppView(),

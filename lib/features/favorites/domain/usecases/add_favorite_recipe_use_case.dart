@@ -4,13 +4,13 @@ import 'package:take_home_project/core/usecase.dart';
 import 'package:take_home_project/features/search_recipes/domain/entities/recipe_entity.dart';
 import 'package:take_home_project/features/search_recipes/domain/repositories/recipes_repository.dart';
 
-class GetRecipesUseCase extends UseCase<List<RecipeEntity>?, NoParams> {
-  GetRecipesUseCase({required this.recipesRepository});
+class AddFavoriteRecipeUseCase extends UseCase<NoParams, RecipeEntity> {
+  final RecipesRepository repository;
 
-  final RecipesRepository recipesRepository;
+  AddFavoriteRecipeUseCase({required this.repository});
 
   @override
-  Future<Either<Failure, List<RecipeEntity>?>> call(NoParams params) {
-    return recipesRepository.getRecipes();
+  Future<Either<Failure, NoParams>> call(RecipeEntity params) {
+    return repository.addFavoriteRecipe(recipe: params);
   }
 }

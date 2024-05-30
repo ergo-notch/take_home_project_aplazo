@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:take_home_project/core/utils/app_colors.dart';
 import 'package:take_home_project/core/utils/app_icons.dart';
+import 'package:take_home_project/features/favorites/presentation/favorites_recipes_screen.dart';
 import 'package:take_home_project/features/search_recipes/presentation/bloc/seach_recipes_bloc.dart';
 import 'package:take_home_project/features/search_recipes/presentation/bloc/search_recipes_events.dart';
 import 'package:take_home_project/features/search_recipes/presentation/bloc/search_recipes_state.dart';
@@ -61,6 +63,15 @@ class SearchRecipeScreenState extends State<SearchRecipeScreen> {
       appBar: AppBar(
         centerTitle: true,
         title: const Text('Search recipes'),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 20),
+            child: IconButton(
+              onPressed: () => context.push(FavoritesRecipesScreen.path),
+              icon: const Icon(Icons.star, color: AppColors.homeButtonColor,),
+            ),
+          )
+        ],
       ),
       body: RefreshIndicator(
         key: _refreshIndicatorKey,

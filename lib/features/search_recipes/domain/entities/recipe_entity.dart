@@ -1,18 +1,23 @@
+import 'package:isar/isar.dart';
 import 'package:take_home_project/features/search_recipes/domain/dtos/recipe_dto.dart';
 
+part 'recipe_entity.g.dart';
+
+
+@collection
 class RecipeEntity {
-  final num? id;
+  final Id? id;
   final String? name;
-  final num? prepTimeMinutes;
-  final num? cookTimeMinutes;
-  final num? servings;
+  final int? prepTimeMinutes;
+  final int? cookTimeMinutes;
+  final int? servings;
   final List<String>? ingredients;
   final List<String>? steps;
   final String? difficulty;
   final String? cuisine;
-  final num? caloriesPerServing;
-  final num? rating;
-  final num? reviewCount;
+  final int? caloriesPerServing;
+  final double? rating;
+  final int? reviewCount;
   final String? urlImage;
   final List<String>? tags;
   final List<String>? mealType;
@@ -36,18 +41,17 @@ class RecipeEntity {
 
   factory RecipeEntity.dtoToEntity({required RecipeDto recipeDto}) =>
       RecipeEntity(
-        id: recipeDto.id,
         name: recipeDto.name,
-        prepTimeMinutes: recipeDto.prepTimeMinutes,
-        cookTimeMinutes: recipeDto.cookTimeMinutes,
-        servings: recipeDto.servings,
+        prepTimeMinutes: recipeDto.prepTimeMinutes?.toInt(),
+        cookTimeMinutes: recipeDto.cookTimeMinutes?.toInt(),
+        servings: recipeDto.servings?.toInt(),
         ingredients: recipeDto.ingredients,
         steps: recipeDto.steps,
         difficulty: recipeDto.difficulty,
         cuisine: recipeDto.cuisine,
-        caloriesPerServing: recipeDto.caloriesPerServing,
-        rating: recipeDto.rating,
-        reviewCount: recipeDto.reviewCount,
+        caloriesPerServing: recipeDto.caloriesPerServing?.toInt(),
+        rating: recipeDto.rating?.toDouble(),
+        reviewCount: recipeDto.reviewCount?.toInt(),
         urlImage: recipeDto.image,
         tags: recipeDto.tags,
         mealType: recipeDto.mealType,

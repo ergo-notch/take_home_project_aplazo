@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:take_home_project/core/utils/app_colors.dart';
 import 'package:take_home_project/core/utils/app_icons.dart';
+import 'package:take_home_project/features/favorites/presentation/bloc/favorites_recipes_bloc.dart';
+import 'package:take_home_project/features/favorites/presentation/bloc/favorites_recipes_event.dart';
 import 'package:take_home_project/features/search_recipes/domain/entities/recipe_entity.dart';
 import 'package:take_home_project/shared/ui/custom_button.dart';
 
@@ -51,6 +54,9 @@ class AuthorRecipeWidget extends StatelessWidget {
         ),
         Expanded(
           child: CustomSmallButton(
+            onPressed: () => context
+                .read<FavoritesRecipesBloc>()
+                .add(AddFavoriteRecipeEvent(recipeEntity: recipeEntity)),
             title: Text(
               'Add to favorites',
               textAlign: TextAlign.center,

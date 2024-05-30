@@ -1,4 +1,8 @@
 import 'package:get_it/get_it.dart';
+import 'package:take_home_project/features/favorites/domain/usecases/add_favorite_recipe_use_case.dart';
+import 'package:take_home_project/features/favorites/domain/usecases/delete_favorite_recipe_use_case.dart';
+import 'package:take_home_project/features/favorites/domain/usecases/get_favorite_recipes_use_case.dart';
+import 'package:take_home_project/features/favorites/presentation/bloc/favorites_recipes_bloc.dart';
 import 'package:take_home_project/features/search_recipes/data/datasources/local/recipes_local_data_source_impl.dart';
 import 'package:take_home_project/features/search_recipes/data/datasources/remote/recipe_remote_data_source_impl.dart';
 import 'package:take_home_project/features/search_recipes/data/repositories/recipe_repository_impl.dart';
@@ -12,23 +16,14 @@ import 'package:take_home_project/features/search_recipes/presentation/bloc/seac
 final sl = GetIt.instance;
 
 Future<void> initModule() async {
-  //DataSource
-  sl.registerFactory<RecipesRemoteDataSource>(
-      () => RecipeRemoteDataSourceImpl(client: sl()));
-
-  sl.registerFactory<RecipesLocalDataSource>(
-      () => RecipesLocalDataSourceImpl(isar: sl()));
-
-  //Repository
-  sl.registerFactory<RecipesRepository>(
-    () => RecipeRepositoryImpl(remoteDataSource: sl(), localDataSource: sl()),
-  );
-
   //UseCases
-  sl.registerLazySingleton(() => GetRecipesUseCase(recipesRepository: sl()));
-  sl.registerLazySingleton(() => SearchRecipesUseCase());
+  sl.registerLazySingleton(() => GetFavoriteRecipesUseCase(repository: sl()));
+  sl.registerLazySingleton(() => AddFavoriteRecipeUseCase(repository: sl()));
+  sl.registerLazySingleton(() => DeleteFavoriteRecipeUseCase(repository: sl()));
 
   //State management
-  sl.registerLazySingleton(() =>
-      SearchRecipesBloc(getRecipesUseCase: sl(), searchRecipesUseCase: sl()));
+  sl.registerLazySingleton(() => FavoritesRecipesBloc(
+      getFavoriteRecipesUseCase: sl(),
+      addFavoriteRecipeUseCase: sl(),
+      deleteFavoriteRecipeUseCase: sl()));
 }

@@ -1,11 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:take_home_project/core/utils/app_colors.dart';
 import 'package:take_home_project/core/utils/app_icons.dart';
 import 'package:take_home_project/features/recipe_details/presentation/ui/author_recipe_widget.dart';
 import 'package:take_home_project/features/recipe_details/presentation/ui/content_recipe_widget.dart';
 import 'package:take_home_project/features/search_recipes/domain/entities/recipe_entity.dart';
 
+import '../../favorites/presentation/favorites_recipes_screen.dart';
 import '../../search_recipes/presentation/ui/rate_widget.dart';
 
 class RecipeDetailsArgs {
@@ -30,10 +33,12 @@ class RecipeDetailsScreen extends StatelessWidget {
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 20),
-            child: InkWell(
-              onTap: () {},
-              child: const Icon(Icons.more_horiz),
-            ),
+            child: IconButton(
+                onPressed: () => context.push(FavoritesRecipesScreen.path),
+                icon: const Icon(
+                  Icons.star,
+                  color: AppColors.homeButtonColor,
+                )),
           )
         ],
       ),

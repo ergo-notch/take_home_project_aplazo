@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:take_home_project/features/favorites/presentation/favorites_recipes_screen.dart';
 import 'package:take_home_project/features/home/presentation/home_screen.dart';
 
 import '../../features/recipe_details/presentation/recipe_details_screen.dart';
@@ -29,6 +30,14 @@ final _routes = [
       key: state.pageKey,
       child: RecipeDetailsScreen(
           recipeDetailsArgs: state.extra as RecipeDetailsArgs),
+    ),
+  ),
+  GoRoute(
+    name: FavoritesRecipesScreen.name,
+    path: FavoritesRecipesScreen.path,
+    pageBuilder: (context, state) => MaterialPage(
+      key: state.pageKey,
+      child: const FavoritesRecipesScreen(),
     ),
   )
 ];
