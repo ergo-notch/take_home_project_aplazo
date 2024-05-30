@@ -28,10 +28,10 @@ class FavoritesRecipesScreenState extends State<FavoritesRecipesScreen> {
   @override
   void initState() {
     super.initState();
-    loadRecipes();
+    loadFavoritesRecipes();
   }
 
-  void loadRecipes() {
+  void loadFavoritesRecipes() {
     final favoritesRecipesBloc = context.read<FavoritesRecipesBloc>();
     favoritesRecipesBloc.add(GetFavoritesRecipesEvent());
   }
@@ -46,7 +46,7 @@ class FavoritesRecipesScreenState extends State<FavoritesRecipesScreen> {
       ),
       body: RefreshIndicator(
         key: _refreshIndicatorKey,
-        onRefresh: () async => loadRecipes(),
+        onRefresh: () async => loadFavoritesRecipes(),
         child: BlocBuilder<FavoritesRecipesBloc, FavoritesRecipesState>(
           builder: (_, state) => Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
@@ -92,7 +92,7 @@ class FavoritesRecipesScreenState extends State<FavoritesRecipesScreen> {
                     ? SliverToBoxAdapter(
                         child: FailureWidget(
                             message: state.errorMessage,
-                            onRetry: () => loadRecipes()),
+                            onRetry: () => loadFavoritesRecipes()),
                       )
                     : state.status == PostStatus.fetching
                         ? SliverToBoxAdapter(child: Container())

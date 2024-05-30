@@ -36,7 +36,6 @@ class SearchRecipeScreenState extends State<SearchRecipeScreen> {
     super.initState();
     SchedulerBinding.instance
         .addPostFrameCallback((_) => _refreshIndicatorKey.currentState?.show());
-    loadRecipes();
     scrollController.addListener(() {
       var nextPageTrigger = 0.8 * scrollController.position.maxScrollExtent;
 

@@ -25,7 +25,7 @@ class SearchRecipesBloc extends Bloc<SearchRecipesEvent, SearchRecipesState> {
   }
 
   Future<void> _getRecipes(event, emit) async {
-    emit(state.copyWith(status: PostStatus.fetching));
+    emit(state.copyWith(status: PostStatus.fetching, recipes: [], filteredRecipes: []));
     final result = await getRecipesUseCase.call(NoParams());
     result.fold(
         (failure) => add(FailedGetRecipesEvent(errorMessage: failure.message)),
