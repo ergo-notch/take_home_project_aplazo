@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:take_home_project/features/search_recipes/presentation/bloc/seach_recipes_bloc.dart';
+import 'package:take_home_project/features/search_recipes/presentation/bloc/search_recipes_events.dart';
 
 class SearchFieldWidget extends StatefulWidget {
   const SearchFieldWidget({super.key});
@@ -19,6 +22,7 @@ class SearchFieldWidgetState extends State<SearchFieldWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final searchRecipeBloc = context.read<SearchRecipesBloc>();
     return Container(
       decoration: BoxDecoration(
         border: Border.all(
@@ -30,7 +34,8 @@ class SearchFieldWidgetState extends State<SearchFieldWidget> {
         textAlignVertical: TextAlignVertical.center,
         controller: _controller,
         maxLines: 1,
-        onChanged: (value) {},
+        onChanged: (value) =>
+            searchRecipeBloc.add(SearchRecipesByStringEvent(searchText: value)),
         style: Theme.of(context).textTheme.bodySmall?.copyWith(
               fontSize: 16,
               decoration: TextDecoration.none,
@@ -56,7 +61,7 @@ class SearchFieldWidgetState extends State<SearchFieldWidget> {
               ? GestureDetector(
                   onTap: () {
                     _controller.clear();
-                    // widget.onTextChanged('');
+                    searchRecipeBloc.add(ClearSearchEvent());
                   },
                   child: const Icon(
                     Icons.close,

@@ -70,7 +70,7 @@ class SearchRecipeScreenState extends State<SearchRecipeScreen> {
                               ?.copyWith(fontWeight: FontWeight.w500),
                         ),
                         Text(
-                          '${state.recipesTotal} results',
+                          '${state.filteredRecipes.length} results',
                           style: Theme.of(context)
                               .textTheme
                               .bodyMedium
@@ -88,7 +88,7 @@ class SearchRecipeScreenState extends State<SearchRecipeScreen> {
                     crossAxisSpacing: 10),
                 delegate: SliverChildBuilderDelegate(
                   (context, index) {
-                    final recipe = state.recipes[index];
+                    final recipe = state.filteredRecipes[index];
                     return Hero(
                       tag: '$index',
                       child: Material(
@@ -102,7 +102,7 @@ class SearchRecipeScreenState extends State<SearchRecipeScreen> {
                       ),
                     );
                   },
-                  childCount: state.recipes.length,
+                  childCount: state.filteredRecipes.length,
                 ),
               ),
             ],

@@ -6,23 +6,23 @@ class SearchRecipesState {
   const SearchRecipesState(
       {this.status = PostStatus.initial,
       this.recipes = const <RecipeEntity>[],
-      this.recipesTotal,
+      this.filteredRecipes = const <RecipeEntity>[],
       this.errorMessage});
 
   final PostStatus status;
   final List<RecipeEntity> recipes;
-  final num? recipesTotal;
+  final List<RecipeEntity> filteredRecipes;
   final String? errorMessage;
 
   SearchRecipesState copyWith(
       {PostStatus? status,
       List<RecipeEntity>? recipes,
-      num? recipesTotal,
+      List<RecipeEntity>? filteredRecipes,
       String? errorMessage}) {
     return SearchRecipesState(
       status: status ?? this.status,
       recipes: recipes ?? this.recipes,
-      recipesTotal: recipesTotal ?? this.recipesTotal,
+      filteredRecipes: filteredRecipes ?? this.filteredRecipes,
       errorMessage: errorMessage ?? this.errorMessage,
     );
   }

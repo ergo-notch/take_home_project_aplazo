@@ -20,3 +20,17 @@ class FailedGetRecipesEvent extends SearchRecipesEvent {
 
   FailedGetRecipesEvent({required this.errorMessage});
 }
+
+class SearchRecipesByStringEvent extends SearchRecipesEvent {
+  final String? searchText;
+
+  SearchRecipesByStringEvent({required this.searchText});
+}
+
+class ShowSearchResultsEvent extends SearchRecipesEvent {
+  final List<RecipeEntity>? recipes;
+
+  ShowSearchResultsEvent({required this.recipes});
+}
+
+class ClearSearchEvent extends SearchRecipesEvent {}

@@ -4,6 +4,7 @@ import 'package:take_home_project/features/search_recipes/data/repositories/reci
 import 'package:take_home_project/features/search_recipes/domain/datasources/recipes_remote_data_source.dart';
 import 'package:take_home_project/features/search_recipes/domain/repositories/recipes_repositoryl.dart';
 import 'package:take_home_project/features/search_recipes/domain/usecases/get_recipes_use_case.dart';
+import 'package:take_home_project/features/search_recipes/domain/usecases/search_recipes_use_case.dart';
 import 'package:take_home_project/features/search_recipes/presentation/bloc/seach_recipes_bloc.dart';
 
 final sl = GetIt.instance;
@@ -20,7 +21,9 @@ Future<void> initModule() async {
 
   //UseCases
   sl.registerLazySingleton(() => GetRecipesUseCase(recipesRepository: sl()));
+  sl.registerLazySingleton(() => SearchRecipesUseCase());
 
   //State management
-  sl.registerLazySingleton(() => SearchRecipesBloc(getRecipesUseCase: sl()));
+  sl.registerLazySingleton(() =>
+      SearchRecipesBloc(getRecipesUseCase: sl(), searchRecipesUseCase: sl()));
 }
