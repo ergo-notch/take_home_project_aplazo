@@ -4,7 +4,7 @@ import 'package:take_home_project/core/utils/app_colors.dart';
 class RateWidget extends StatelessWidget {
   const RateWidget({super.key, required this.stars});
 
-  final double stars;
+  final num stars;
 
   @override
   Widget build(BuildContext context) {

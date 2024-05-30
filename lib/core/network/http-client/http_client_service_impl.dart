@@ -40,13 +40,9 @@ class HttpClientServiceImpl extends HttpClientService {
   @override
   Future get({
     required String path,
-    required Map<String, dynamic> data,
   }) async {
     try {
-      final response = await dio.get(
-        path,
-        data: data,
-      );
+      final response = await dio.get(path);
       return response.data;
     } on DioException catch (e) {
       if (e.response?.data.toString().contains('errors') ?? false) {

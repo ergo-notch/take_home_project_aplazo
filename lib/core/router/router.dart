@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:take_home_project/features/home/presentation/home_screen.dart';
-import 'package:take_home_project/features/recipe/presentation/recipe_details_screen.dart';
-import 'package:take_home_project/features/search/presentation/search_recipe_screen.dart';
+
+import '../../features/recipe_details/presentation/recipe_details_screen.dart';
+import '../../features/search_recipes/presentation/search_recipe_screen.dart';
 
 final _routes = [
   GoRoute(
@@ -26,7 +27,8 @@ final _routes = [
     path: RecipeDetailsScreen.path,
     pageBuilder: (context, state) => MaterialPage(
       key: state.pageKey,
-      child: RecipeDetailsScreen(index: state.extra as int),
+      child: RecipeDetailsScreen(
+          recipeDetailsArgs: state.extra as RecipeDetailsArgs),
     ),
   )
 ];

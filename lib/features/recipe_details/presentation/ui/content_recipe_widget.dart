@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_toggle_tab/flutter_toggle_tab.dart';
 import 'package:take_home_project/core/utils/app_colors.dart';
 import 'package:take_home_project/core/utils/app_icons.dart';
+import 'package:take_home_project/features/search_recipes/domain/entities/recipe_entity.dart';
 
 class ContentRecipeWidget extends StatefulWidget {
-  const ContentRecipeWidget({super.key});
+  const ContentRecipeWidget({super.key, required this.recipeEntity});
+
+  final RecipeEntity recipeEntity;
 
   @override
   ContentRecipeWidgetState createState() => ContentRecipeWidgetState();
@@ -39,22 +42,22 @@ class ContentRecipeWidgetState extends State<ContentRecipeWidget> {
             });
           },
         ),
-        SizedBox(
+        const SizedBox(
           height: 15,
         ),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
                 children: [
                   Image.asset(AppIcons.portionIcon),
-                  SizedBox(
+                  const SizedBox(
                     width: 5,
                   ),
                   Text(
-                    '1 serve',
+                    '${widget.recipeEntity.servings} serve',
                     style: Theme.of(context)
                         .textTheme
                         .bodyMedium
@@ -63,7 +66,7 @@ class ContentRecipeWidgetState extends State<ContentRecipeWidget> {
                 ],
               ),
               Text(
-                '10 Steps',
+                '${widget.recipeEntity.steps?.length} Steps',
                 style: Theme.of(context)
                     .textTheme
                     .bodyMedium
@@ -76,31 +79,33 @@ class ContentRecipeWidgetState extends State<ContentRecipeWidget> {
           height: 20,
         ),
         ListView.builder(
-            physics: NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
-            itemCount: 20,
+            itemCount: _tabTextIndexSelected.value == 1
+                ? widget.recipeEntity.ingredients?.length
+                : widget.recipeEntity.steps?.length,
             itemBuilder: (_, index) {
               return Container(
                 padding: const EdgeInsets.all(5),
-                margin: EdgeInsets.symmetric(vertical: 5),
-                decoration: BoxDecoration(
+                margin: const EdgeInsets.symmetric(vertical: 5),
+                decoration: const BoxDecoration(
                   color: AppColors.tileBackgroundColor,
-                  borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
                 ),
                 child: _tabTextIndexSelected.value == 1
                     ? ListTile(
                         title: Text(
-                          'Tomatos',
+                          '${widget.recipeEntity.ingredients?[index]}',
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
                       )
                     : ListTile(
                         title: Text(
-                          'Step 1',
+                          'Step ${index + 1}',
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
                         subtitle: Text(
-                          "Lorem Ipsum tempor incididunt ut labore et dolore,in voluptate velit esse cillum dolore eu fugiat nulla pariatur?",
+                          '${widget.recipeEntity.steps?[index]}',
                           style: Theme.of(context)
                               .textTheme
                               .bodyMedium
@@ -108,7 +113,10 @@ class ContentRecipeWidgetState extends State<ContentRecipeWidget> {
                         ),
                       ),
               );
-            })
+            }),
+        const SizedBox(
+          height: 20,
+        ),
       ],
     );
   }

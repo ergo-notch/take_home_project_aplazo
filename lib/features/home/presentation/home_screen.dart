@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:take_home_project/core/utils/app_images.dart';
-import 'package:take_home_project/features/search/presentation/search_recipe_screen.dart';
 import 'package:take_home_project/shared/ui/home_button.dart';
 
 import '../../../core/utils/app_icons.dart';
+import '../../search_recipes/presentation/search_recipe_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
